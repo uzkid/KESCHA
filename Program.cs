@@ -1,81 +1,81 @@
 using System;
 
-class Program
+public class Car
 {
-    static void Main()
-    {
-        Console.WriteLine("Choose a task to run (1, 2, or 3):");
-        Console.WriteLine("1 - Sum of odd numbers from 1 to 1000");
-        Console.WriteLine("2 - Product of the largest and smallest array values");
-        Console.WriteLine("3 - Calculate factorial of a number");
-        Console.Write("Enter your choice: ");
-        string choice = Console.ReadLine();
+    private string brand;
+    private string model;
+    private int year;
+    private decimal price;
+    private decimal speed;
 
-        switch (choice)
-        {
-            case "1":
-                SumOfOddNumbers();
-                break;
-            case "2":
-                ArrayMinMaxProduct();
-                break;
-            case "3":
-                FactorialCalculation();
-                break;
-            default:
-                Console.WriteLine("Invalid choice. Please run the program again.");
-                break;
-        }
+    public Car(string brand, string model, int year, decimal price, decimal speed)
+    {
+        this.brand = brand;
+        this.model = model;
+        this.year = year;
+        this.price = price;
+        this.speed = speed;
     }
 
-    static void SumOfOddNumbers()
+
+    public string Brand
     {
-        int sum = 0;
-        int i = 1;
-        while (i <= 1000)
-        {
-            if (i % 2 != 0)
-            {
-                sum += i;
-            }
-            i++;
-        }
-        Console.WriteLine($"The sum of odd numbers from 1 to 1000 is: {sum}");
+        get { return brand; }
+        set { brand = value; }
     }
 
-    static void ArrayMinMaxProduct()
+    public string Model
     {
-        Console.Write("Enter numbers separated by commas (e.g., 3, 7, 1, 9): ");
-        string input = Console.ReadLine();
-        int[] numbers = Array.ConvertAll(input.Split(','), int.Parse);
-
-        int min = numbers[0];
-        int max = numbers[0];
-
-        for (int i = 1; i < numbers.Length; i++)
-        {
-            if (numbers[i] < min)
-                min = numbers[i];
-            if (numbers[i] > max)
-                max = numbers[i];
-        }
-
-        int product = min * max;
-        Console.WriteLine($"The product of the smallest ({min}) and largest ({max}) values is: {product}");
+        get { return model; }
+        set { model = value; }
     }
 
-    static void FactorialCalculation()
+    public int Year
     {
-        Console.Write("Enter an integer (x): ");
-        int x = int.Parse(Console.ReadLine());
-        long factorial = 1;
+        get { return year; }
+        set { year = value; }
+    }
 
-        for (int i = 1; i <= x; i++)
+    public decimal Price
+    {
+        get { return price; }
+        set { price = value; }
+    }
+
+    public decimal Speed
+    {
+        get { return speed; }
+        set { speed = value; }
+    }
+
+    public string GetCarInfo()
+    {
+        return $"Brand: {brand}, Model: {model}, Year: {year}, Price: {price:C}, Speed: {speed} km/h";
+    }
+
+    public decimal CalculateDepreciation(int years)
+    {
+        decimal depreciation = price;
+        for (int i = 0; i < years; i++)
         {
-            factorial *= i;
+            depreciation -= depreciation * 0.10m;
         }
-
-        Console.WriteLine($"{x}! = {factorial}");
+        return depreciation;
     }
 }
 
+public class Program
+{
+    public static void Main()
+    {
+        Car myCar = new Car("Toyota", "Corolla", 2020, 20000m, 180);
+
+        myCar.Price = 22000m; 
+
+        Console.WriteLine(myCar.GetCarInfo());
+
+        Console.WriteLine("Price after 1 year: " + myCar.CalculateDepreciation(1).ToString("C"));
+        Console.WriteLine("Price after 3 years: " + myCar.CalculateDepreciation(3).ToString("C"));
+        Console.WriteLine("Price after 5 years: " + myCar.CalculateDepreciation(5).ToString("C"));
+    }
+}
